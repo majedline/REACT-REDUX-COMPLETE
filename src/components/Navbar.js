@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, NavLink, withRouter } from "react-router-dom";
+import { NavLink, withRouter } from "react-router-dom";
 
 
 const Navbar = (props) => {
@@ -11,7 +11,7 @@ const Navbar = (props) => {
     return (
         <nav>
             <div className="nav-wrapper red darken-3">
-                <a href="#" className="brand-logo">Logo</a>
+                <NavLink to="/" className="brand-logo">Logo</NavLink>
                 <ul id="nav-mobile" className="right hide-on-med-and-down">
                     <li><NavLink to="/">Home</NavLink></li>
                     <li><NavLink to="/about">About</NavLink></li>

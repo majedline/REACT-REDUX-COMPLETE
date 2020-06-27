@@ -5,6 +5,7 @@ import Home from "./components/Home";
 import About from "./components/About";
 import Contact from "./components/Contact";
 import Todo from "./components/todo/TodoHome";
+import Post from "./components/Post";
 
 class App extends Component {
 
@@ -17,6 +18,7 @@ class App extends Component {
                     <Route path='/about' component={About} />
                     <Route path='/contact' component={Contact} />
                     <Route path='/todo' component={Todo} />
+                    <Route path="/:post_id" component={Post} />
 
                 </div>
             </BrowserRouter>
