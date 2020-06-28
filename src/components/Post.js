@@ -4,9 +4,23 @@ import { connect } from 'react-redux';
 class Post extends Component {
 
 
-    handleClick = ()=>{
+    handleDeleteClick = () => {
         this.props.deletePost(this.props.post.id);
         this.props.history.push('/');
+    }
+
+    handleEditPost = (event) => {
+        console.log(event.target.value);
+        this.props.editPost(this.props.post.id, event.target.value);
+    }
+
+    handleSaveClick = () => {
+        this.props.savePost(this.props.post.id);
+        this.props.history.push('/');
+    }
+
+    handleCancelClick = () => {
+        //
     }
 
     render() {
@@ -14,9 +28,19 @@ class Post extends Component {
         const post = this.props.post ? (
             <div className="post">
                 <h4 className="center">{this.props.post.title}</h4>
-                <p>{this.props.post.body}</p>
+                <textarea id="textarea1" className="materialize-textarea"
+                    defaultValue={this.props.post.body} onChange={this.handleEditPost} />
+
                 <div className="center">
-                    <button className="btn grey" onClick={this.handleClick}>
+                    <button className="btn grey system-buttons" onClick={this.handleSaveClick}>
+                        Save Post
+                    </button>
+
+                    <button className="btn grey system-buttons" onClick={this.handleCancelClick}>
+                        Cancel Edit
+                    </button>
+
+                    <button className="btn grey system-buttons" onClick={this.handleDeleteClick}>
                         Delete Post
                     </button>
                 </div>
@@ -45,6 +69,12 @@ const mapDispatchToProps = (dispatch) => {
     return {
         deletePost: (id) => {
             dispatch({ type: 'DELETE_POST', id: id });
+        },
+        editPost: (id, body) => {
+            dispatch({ type: 'EDIT_POST', id: id, body: body })
+        },
+        savePost: (id) => {
+            dispatch({ type: 'SAVE_POST', id: id })
         }
     }
 }

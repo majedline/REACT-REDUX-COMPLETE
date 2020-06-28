@@ -24,3 +24,11 @@ code {
   overflow: hidden;
   padding-left: 80px;
 }
+
+.post #textarea1{
+  height: 300px;
+}
+
+.post .system-buttons{
+  margin: 10px;
+}
