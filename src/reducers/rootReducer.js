@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 const initState = {
     posts: [
         {
@@ -39,7 +41,9 @@ const rootReducer = (state = initState, action) => {
             posts: newPosts
         };
     } else if (action.type === 'SAVE_POST') {
-        axios.post('/post', state.posts.find((post) => post.id === action.id) // this is an example to save a record
+        let postToSave = state.posts.find((post) => post.id === action.id);
+        // THIS IS A FAKE SAVE FOR NOW UNTIL THE SERVER IS READY.
+        axios.post('/post', {postToSave})
             .then(function (response) {
                 console.log(response);
             })
