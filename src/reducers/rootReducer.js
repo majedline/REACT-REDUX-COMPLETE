@@ -1,4 +1,5 @@
-import axios from 'axios';
+// import axios from 'axios';
+import PostReducer from './post/PostReducer';
 
 const initState = {
     posts: [
@@ -23,37 +24,58 @@ const initState = {
 const rootReducer = (state = initState, action) => {
     console.log(action);
 
-    if (action.type === 'DELETE_POST') {
-        let newPosts = state.posts.filter((post) => {
-            return action.id !== post.id;
-        });
-        return {
-            ...state,
-            posts: newPosts
-        };
-    } else if (action.type === 'EDIT_POST') {
-        let newPosts = [...state.posts];
-        let newPostID = state.posts.findIndex((post) => { return post.id === action.id })
-        newPosts[newPostID].body = action.body;
+    let postReducer = new PostReducer(state, action);
 
-        return {
-            ...state,
-            posts: newPosts
-        };
+    if (action.type === 'DELETE_POST') {
+        return postReducer.deletePost();
+
+    } else if (action.type === 'EDIT_POST') {
+        return postReducer.editPost();
+
     } else if (action.type === 'SAVE_POST') {
-        let postToSave = state.posts.find((post) => post.id === action.id);
-        // THIS IS A FAKE SAVE FOR NOW UNTIL THE SERVER IS READY.
-        axios.post('/post', {postToSave})
-            .then(function (response) {
-                console.log(response);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
+        postReducer.savePost();
 
     }
     return state;
-
 }
+
+
+
+// const rootReducer_old = (state = initState, action) => {
+//     // console.log(action);
+//     // rootReducer2(state, action);
+
+//     if (action.type === 'DELETE_POST') {
+//         let newPosts = state.posts.filter((post) => {
+//             return action.id !== post.id;
+//         });
+//         return {
+//             ...state,
+//             posts: newPosts
+//         };
+//     } else if (action.type === 'EDIT_POST') {
+//         let newPosts = [...state.posts];
+//         let newPostID = state.posts.findIndex((post) => { return post.id === action.id })
+//         newPosts[newPostID].body = action.body;
+
+//         return {
+//             ...state,
+//             posts: newPosts
+//         };
+//     } else if (action.type === 'SAVE_POST') {
+//         let postToSave = state.posts.find((post) => post.id === action.id);
+//         // THIS IS A FAKE SAVE FOR NOW UNTIL THE SERVER IS READY.
+//         axios.post('/post', { postToSave })
+//             .then(function (response) {
+//                 console.log(response);
+//             })
+//             .catch(function (error) {
+//                 console.log(error);
+//             });
+
+//     }
+//     return state;
+
+// } 
 
 export default rootReducer;
